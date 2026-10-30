@@ -17,6 +17,11 @@ public:
     explicit MyWidget(QWidget *parent = nullptr);
     ~MyWidget() override;
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MyWidget *ui;
 };

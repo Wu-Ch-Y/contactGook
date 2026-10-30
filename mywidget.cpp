@@ -4,6 +4,7 @@
 #include<QFile>
 #include<QDebug>
 #include<QFileDialog>
+#include<QTextStream>
 
 //QString mFilename = "C:\\Users\\wecha\\OneDrive\\Desktop\\ex";
 
@@ -18,6 +19,7 @@ void Write(QString Filename,QString str){
     out<<str;
     mFile.flush();
     mFile.close();
+
 
 }
 
@@ -63,8 +65,8 @@ void MyWidget::on_pushButton_2_clicked()
 {
     QString fileName;
     QString saveStr;
-    fileName = QFileDialog::getSaveFileName(this,"匯出通訊錄",".",
-                                            "csv(.csv);;text(.txt)");
+    fileName = QFileDialog::getSaveFileName(this,"匯出通訊錄",".","CSV Files (.csv);;Text Files (.txt)");
+
     for(int i=0; i<ui->tableWidget->rowCount();i++)
     {
         for(int j=0; j<ui->tableWidget->columnCount();j++)
@@ -80,7 +82,8 @@ void MyWidget::on_pushButton_2_clicked()
 
 void MyWidget::on_pushButton_3_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "匯入通訊錄", ".", "csv(.csv);;text(.txt)");
+    QString fileName = QFileDialog::getOpenFileName(this, "匯入通訊錄", ".", "CSV Files (.csv);;Text Files (.txt)");
+
     if (fileName.isEmpty())
         return;
     QFile file(fileName);

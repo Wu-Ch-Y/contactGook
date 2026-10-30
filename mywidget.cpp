@@ -3,8 +3,9 @@
 
 #include<QFile>
 #include<QDebug>
+#include<QFileDialog>
 
-QString mFilename = "C:\\Users\\wecha\\OneDrive\\Desktop\\qt\\contactGook\\HW_EX\\contact.txt";
+//QString mFilename = "C:\\Users\\wecha\\OneDrive\\Desktop\\ex";
 
 void Write(QString Filename,QString str){
     QFile mFile(Filename);
@@ -60,14 +61,56 @@ void MyWidget::on_pushButton_clicked()
 
 void MyWidget::on_pushButton_2_clicked()
 {
-    QString saveFile="";
-
-    for(int i=0;i<ui->tableWidget->rowCount();i++){
-        for(int j=0;j<ui->tableWidget->columnCount();j++){
-            saveFile+=ui->tableWidget->item(i,j)->text()+",";
+    QString fileName;
+    QString saveStr;
+    fileName = QFileDialog::getSaveFileName(this,"匯出通訊錄",".",
+                                            "csv(.csv);;text(.txt)");
+    for(int i=0; i<ui->tableWidget->rowCount();i++)
+    {
+        for(int j=0; j<ui->tableWidget->columnCount();j++)
+        {
+            saveStr+=ui->tableWidget->item(i,j)->text()+(j<ui->tableWidget->columnCount() ? ",":"");
         }
-        saveFile+="\n";
+        saveStr +="\n";
     }
-    Write(mFilename,saveFile);
+    saveStr+="\n";
+    Write(fileName,saveStr);
+}
+
+
+void MyWidget::on_pushButton_3_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "匯入通訊錄", ".", "csv(.csv);;text(.txt)");
+    if (fileName.isEmpty())
+        return;
+    QFile file(fileName);
+
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Open File for reading failed!";
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setEncoding(QStringConverter::System);
+    ui->tableWidget->setRowCount(0);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        QStringList fields = line.split(',');
+        int row = ui->tableWidget->rowCount();
+        ui->tableWidget->insertRow(row);
+
+        for (int i=0; i<fields.size() && i<ui->tableWidget->columnCount();i++)
+        {
+            ui->tableWidget->setItem(row, i, new QTableWidgetItem(fields[i]));
+        }
+    }
+    file.close();
 }
 

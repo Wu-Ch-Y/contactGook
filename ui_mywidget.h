@@ -38,10 +38,11 @@ public:
     QLineEdit *lineEdit_4;
     QLineEdit *lineEdit_2;
     QGridLayout *gridLayout_2;
+    QPushButton *pushButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton_2;
-    QPushButton *pushButton;
     QSpacerItem *horizontalSpacer_2;
+    QPushButton *pushButton_3;
 
     void setupUi(QWidget *MyWidget)
     {
@@ -102,6 +103,11 @@ public:
 
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName("gridLayout_2");
+        pushButton = new QPushButton(MyWidget);
+        pushButton->setObjectName("pushButton");
+
+        gridLayout_2->addWidget(pushButton, 0, 1, 1, 1);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         gridLayout_2->addItem(horizontalSpacer, 0, 0, 1, 1);
@@ -111,14 +117,14 @@ public:
 
         gridLayout_2->addWidget(pushButton_2, 0, 2, 1, 1);
 
-        pushButton = new QPushButton(MyWidget);
-        pushButton->setObjectName("pushButton");
-
-        gridLayout_2->addWidget(pushButton, 0, 1, 1, 1);
-
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        gridLayout_2->addItem(horizontalSpacer_2, 0, 3, 1, 1);
+        gridLayout_2->addItem(horizontalSpacer_2, 0, 4, 1, 1);
+
+        pushButton_3 = new QPushButton(MyWidget);
+        pushButton_3->setObjectName("pushButton_3");
+
+        gridLayout_2->addWidget(pushButton_3, 0, 3, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout_2);
@@ -136,8 +142,9 @@ public:
         label_4->setText(QCoreApplication::translate("MyWidget", "\351\233\273\350\251\261:", nullptr));
         label_3->setText(QCoreApplication::translate("MyWidget", "\345\247\223\345\220\215:", nullptr));
         label_2->setText(QCoreApplication::translate("MyWidget", "\347\217\255\347\264\232:", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MyWidget", "\345\214\257\345\207\272", nullptr));
         pushButton->setText(QCoreApplication::translate("MyWidget", "\346\226\260\345\242\236", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MyWidget", "\345\214\257\345\207\272", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MyWidget", "\345\214\257\345\205\245", nullptr));
     } // retranslateUi
 
 };
